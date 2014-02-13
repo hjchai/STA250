@@ -16,11 +16,14 @@ system("~/hadoop-2.2.0/sbin/start-all.sh")
 # Makefile
 system("make")
 
+# Leave safe mode
+system("hadoop dfsadmin -safemode leave")
+
 # Run hadoop computation
 system("hadoop jar eg.jar DelaysFrequencyTable Data Out")
 
 # Copy results from hdfs to local
-system("hadoop fs -copyToLocal /user/huajun/Out/* ~/Desktop/STA250/HW2/Hadoop/")
+system("hadoop fs -copyToLocal /user/huajun/Out/part-r-00000 ~/Desktop/STA250/HW2/Hadoop/")
 
 # Remove ../Out folder
 system("hadoop fs -rm -r /user/huajun/Out")

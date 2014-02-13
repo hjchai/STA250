@@ -25,6 +25,7 @@ public class Delays implements Callable<int[]> {
     public int[] call() {
         java.io.InputStream fstream;
 	try {
+            
 	    fstream = new java.io.FileInputStream(filename);
 	    java.io.BufferedReader buf = new java.io.BufferedReader(new java.io.InputStreamReader(fstream));
 
@@ -56,7 +57,10 @@ public class Delays implements Callable<int[]> {
     public String getDelay(String line) {
 	String[] els =  line.split(",");
 	//	System.out.println(els[14]);
-	return(els[14]);
+        if((int) Double.parseDouble(els[0]) >= 2008)
+            return(els[44]);
+        else
+            return(els[14]);
     }
 
     protected void storeDelay(String value) {
@@ -105,6 +109,8 @@ public class Delays implements Callable<int[]> {
             pool.shutdown();
 	} else {
 	    Delays d = new Delays(args[0]);
+            d.call();
+            d.showTable();
 	}
         
             FileWriter out = new FileWriter("delayData.txt");

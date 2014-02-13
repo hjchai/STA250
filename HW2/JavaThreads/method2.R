@@ -90,5 +90,5 @@ ptm1 <- proc.time()
 time = ptm1 - ptm 
 
 # Write result into data file
-result1 <- list(time = time, results = c(mean = mu, median = med, sd = std), system = Sys.info(), session = sessionInfo())
-save(result1, file = "result_1.rda")
+result2 <- list(time = time, results = c(mean = mu, median = med, sd = std), system = Sys.info(), session = sessionInfo())
+save(result2, file = "result_2.rda")

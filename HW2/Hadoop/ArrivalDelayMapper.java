@@ -19,10 +19,18 @@ public class ArrivalDelayMapper extends Mapper<LongWritable, Text, IntWritable, 
     {
 	int delay;
 	String[] els = value.toString().split(",");
-	if(!els[14].equals("ArrDelay") && !els[14].equals("NA")) {
-	    delay = Integer.parseInt(els[14]);
-	    context.write(new IntWritable(delay), new IntWritable(1));
-	}
+        if(!els[0].equals("Year") && !els[0].equals("\"YEAR\"") && (int) Double.parseDouble(els[0]) < 2008){
+            if(!els[14].equals("ArrDelay") && !els[14].equals("NA")) {
+                delay = Integer.parseInt(els[14]);
+                context.write(new IntWritable(delay), new IntWritable(1));
+            }
+        }
+        if(!els[0].equals("Year") && !els[0].equals("\"YEAR\"") && (int) Double.parseDouble(els[0]) >= 2008){
+            if(!els[44].equals("ARR_DELAY") && !els[44].equals("NA") && !els[44].isEmpty()) {
+                delay = (int)Double.parseDouble(els[44]);
+                 context.write(new IntWritable(delay), new IntWritable(1));
+             }
+        }
     }
 
 }
